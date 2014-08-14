@@ -1,0 +1,18 @@
+In file included from /KaiFa/company/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemag.h:7,
+                 from /KaiFa/company/Project/EDAS_GN_SMS/CodeC/IphoneCode/GlobalData.h:6,
+                 from /KaiFa/company/Project/EDAS_GN_SMS/QueryinfoViewController.mm:10:
+/KaiFa/company/Project/EDAS_GN_SMS/CodeC/IphoneCode/CommonDef.h:11:1: warning: "NULL" redefined
+/KaiFa/company/Project/EDAS_GN_SMS/CodeC/IphoneCode/CommonDef.h:31932:90: warning: this is the location of the previous definition
+In file included from /KaiFa/company/Project/EDAS_GN_SMS/CodeC/IphoneCode/GlobalData.h:7,
+                 from /KaiFa/company/Project/EDAS_GN_SMS/QueryinfoViewController.mm:10:
+/KaiFa/company/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.h:112: error: expected ';' before 'public'
+/KaiFa/company/Project/EDAS_GN_SMS/QueryinfoViewController.mm: In function 'int -[QueryinfoViewController shouldAutorotateToInterfaceOrientation:](QueryinfoViewController*, objc_selector*, UIInterfaceOrientation)':
+/KaiFa/company/Project/EDAS_GN_SMS/QueryinfoViewController.mm:37: warning: conflicting types for '-(int)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation'
+/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIViewController.h:158: warning: previous declaration of '-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation'
+/KaiFa/company/Project/EDAS_GN_SMS/QueryinfoViewController.mm: In function 'void -[QueryinfoViewController Refresh:](QueryinfoViewController*, objc_selector*, objc_object*)':
+/KaiFa/company/Project/EDAS_GN_SMS/QueryinfoViewController.mm:68: error: 'class CSitemagDoc' has no member named 'm_bshow_allmsg'
+/KaiFa/company/Project/EDAS_GN_SMS/QueryinfoViewController.mm: In function 'void -[QueryinfoViewController ontimer_msg:](QueryinfoViewController*, objc_selector*, NSTimer*)':
+/KaiFa/company/Project/EDAS_GN_SMS/QueryinfoViewController.mm:78: error: 'class CSitemagDoc' has no member named 'm_bshow_allmsg'
+/KaiFa/company/Project/EDAS_GN_SMS/QueryinfoViewController.mm: At global scope:
+/KaiFa/company/Project/EDAS_GN_SMS/QueryinfoViewController.mm:88: warning: property 'm_timer' requires method '-m_timer' to be defined - use @synthesize, @dynamic or provide a method implementation
+/KaiFa/company/Project/EDAS_GN_SMS/QueryinfoViewController.mm:88: warning: property 'm_timer' requires the method 'setM_timer:' to be defined - use @synthesize, @dynamic or provide a method implementation
