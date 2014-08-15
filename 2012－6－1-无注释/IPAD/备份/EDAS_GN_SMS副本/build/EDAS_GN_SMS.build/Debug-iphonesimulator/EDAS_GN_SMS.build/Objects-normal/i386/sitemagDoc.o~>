@@ -1,0 +1,21 @@
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C: In member function 'void CSitemagDoc::OnRunSitemag(int)':
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:706: warning: overflow in implicit constant conversion
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C: In member function 'int CSitemagDoc::SetStnpar(STN_PAR*, char*, int)':
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1185: warning: format '%d' expects type 'int*', but argument 3 has type 'long int*'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1185: warning: format '%d' expects type 'int*', but argument 3 has type 'long int*'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1188: warning: format '%d' expects type 'int*', but argument 4 has type 'short int*'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1188: warning: format '%d' expects type 'int*', but argument 4 has type 'short int*'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1190: warning: format '%d' expects type 'int*', but argument 3 has type 'short int*'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1190: warning: format '%d' expects type 'int*', but argument 3 has type 'short int*'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1192: warning: format '%d' expects type 'int*', but argument 3 has type 'short int*'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1192: warning: format '%d' expects type 'int*', but argument 3 has type 'short int*'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1195: warning: format '%d' expects type 'int*', but argument 3 has type 'long int*'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1195: warning: format '%d' expects type 'int*', but argument 3 has type 'long int*'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1196: warning: format '%d' expects type 'int*', but argument 3 has type 'long int*'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1196: warning: format '%d' expects type 'int*', but argument 3 has type 'long int*'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1176: warning: unused variable 'buf'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C: In member function 'void CSitemagDoc::OnZaiping(char*, std::string&)':
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:1537: warning: unused variable 'fmt'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C: At global scope:
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.C:3850: error: prototype for 'void CSitemagDoc::OnCfgIp(char*, int)' does not match any in class 'CSitemagDoc'
+/Project/EDAS_GN_SMS/CodeC/IphoneCode/sitemagDoc.h:347: error: candidate is: void CSitemagDoc::OnCfgIp()
