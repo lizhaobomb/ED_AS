@@ -165,7 +165,7 @@
 		UIAlertView *av = [[[UIAlertView alloc] initWithTitle:@"提示" message:@"网络连接已断开" 
 													 delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
 		[av show];	
-		[self.parentViewController dismissModalViewControllerAnimated:YES];
+		[self dismissModalViewControllerAnimated:YES];
 		return;
 	}
 	
@@ -176,7 +176,7 @@
         // The view controller has not been created yet, create it and set it to our menuList array
         NSString *viewControllerName = [selectRowData objectForKey:kViewControllerNameKey];
 		if([viewControllerName length] == 0){
-			[self.parentViewController dismissModalViewControllerAnimated:YES];
+			[self dismissModalViewControllerAnimated:YES];
 			selectRowData = nil;
 			return;
 		} 
@@ -185,7 +185,7 @@
         [selectRowData setValue:targetViewController forKey:kViewControllerKey];
         [targetViewController release];
     }
-	[self.parentViewController dismissModalViewControllerAnimated:NO];
+	[self dismissModalViewControllerAnimated:NO];
 	tempSelectRowData = selectRowData;
 	
 }

@@ -466,15 +466,15 @@
 		7281A7441491D30C009728D5 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				728C1D5D14998765002070E2 /* QueryMenuViewController.h */,
+				728C1D5E14998765002070E2 /* QueryMenuViewController.mm */,
+				728C1D5F14998765002070E2 /* QueryMenuViewController.xib */,
 				7281A9801495A215009728D5 /* RunMenuViewController.h */,
 				7281A9811495A215009728D5 /* RunMenuViewController.mm */,
 				7281A9821495A215009728D5 /* RunMenuViewController.xib */,
 				728C1CE614997D51002070E2 /* SetMenuViewController.h */,
 				728C1CE714997D51002070E2 /* SetMenuViewController.m */,
-				728C1D5D14998765002070E2 /* QueryMenuViewController.h */,
 				728C1CE814997D51002070E2 /* SetMenuViewController.xib */,
-				728C1D5E14998765002070E2 /* QueryMenuViewController.mm */,
-				728C1D5F14998765002070E2 /* QueryMenuViewController.xib */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -686,6 +686,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "EDAS_GN_SMS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;

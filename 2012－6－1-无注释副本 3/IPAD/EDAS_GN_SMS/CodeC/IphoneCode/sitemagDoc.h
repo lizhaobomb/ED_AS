@@ -111,6 +111,7 @@ public:
 	BOOL m_bshow_allmsg;//TRUE-show m_old_msg,FALSE-show m_msg
 	
 	int m_sensid;//the sensor id to be send message to, used at SensSet
+    BOOL m_offset;//offset or not
  public:
 	//分配m_pchannel
 	BOOL AllocateChannel();
@@ -218,6 +219,9 @@ public:
 	void OnDetevt(char * pdata,string & info);
 	//事件触发
 	void OnEvtTrig(char * pdata,string & info);
+    
+    void OnEvtrecFile(char * pdata, string & info);
+    
 	//触发结束
 	void OnEvtDetrig(char * pdata,string & info);
 
@@ -406,6 +410,9 @@ public:
 	 void OnInqDatasrv();
 	 void OnInqTimezone();
 	 void OnInqEnv();
+     void OnInqBiaoDing();
+     void OnInqDataService();
+     void OnInqEvtRec();
 	 void OnInqHdstat();
 	/*
  	 void OnUpdateInqCal(CCmdUI* pCmdUI);

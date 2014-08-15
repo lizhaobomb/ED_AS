@@ -10,7 +10,7 @@
 
 #import "CDSPCTL.h"
 #define FONTSIZE 12.0f
-@interface DrawwaveView : UIView {
+@interface DrawwaveView : UIView <UIActionSheetDelegate>{
 	CDSPCTL * m_dspctl;//display parameters
 	int m_real_time_status;//true-show realtime wave
 	CGRect m_rect;//screen size

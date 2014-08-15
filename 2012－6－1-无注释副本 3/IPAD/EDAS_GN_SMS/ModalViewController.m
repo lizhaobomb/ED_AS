@@ -95,7 +95,7 @@
 
 - (IBAction)dismissAction:(id)sender
 {
-	[self.parentViewController dismissModalViewControllerAnimated:YES];
+	[self dismissModalViewControllerAnimated:YES];
 	//[self.parentViewController.navigationItem
 }
 

@@ -117,11 +117,30 @@
 							  nil
 							  ]];
 	[self.menuList addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-							  @"地震计零点", kTitleKey,
-							  @"地震计零点", kDetailKey,
+							  @"加速度计零点", kTitleKey,
+							  @"加速度计零点", kDetailKey,
 							  @"QueryinfoViewController", kViewControllerNameKey,
 							  nil
 							  ]];
+    [self.menuList addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+							  @"标定参数", kTitleKey,
+							  @"标定参数", kDetailKey,
+							  @"QueryinfoViewController", kViewControllerNameKey,
+							  nil
+							  ]];
+    [self.menuList addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+							  @"数据服务", kTitleKey,
+							  @"数据服务", kDetailKey,
+							  @"QueryinfoViewController", kViewControllerNameKey,
+							  nil
+							  ]];
+    [self.menuList addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+							  @"事件记录", kTitleKey,
+							  @"事件记录", kDetailKey,
+							  @"QueryinfoViewController", kViewControllerNameKey,
+							  nil
+							  ]];
+    
 	[self.menuList addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
 							  @"取消", kTitleKey,
 							  @"取消", kDetailKey,
@@ -284,7 +303,7 @@
 			 case 1://site,instrument response
 				 siteDoc.m_msg="";
 				 siteDoc.OnInqSite();
-				 siteDoc.OnInqInst();
+				 //siteDoc.OnInqInst();
 				 break;
 			 case 2://smprate gain
 				 siteDoc.m_msg="";
@@ -297,12 +316,24 @@
 			 case 4://env hd size
 				 siteDoc.m_msg="";
 				 siteDoc.OnInqEnv();
-				 siteDoc.OnInqHdstat();
+				 //siteDoc.OnInqHdstat();
 				 break;
 			 case 5://sensor zero
 				 siteDoc.m_msg="";
 				 siteDoc.OnInqSensoff();
 				 break;
+             case 6://标定参数
+				 siteDoc.m_msg="";
+				 siteDoc.OnInqBiaoDing();
+				 break;
+             case 7://数据服务
+				 siteDoc.m_msg="";
+				 siteDoc.OnInqDataService();
+				 break;
+             case 8://事件记录
+                 siteDoc.m_msg="";
+                 siteDoc.OnInqEvtRec();
+                 break;
 		 }
 	 }
 	
@@ -311,8 +342,9 @@
 	selectRowData = [self.menuList objectAtIndex:indexPath.row];
 	NSString *viewControllerName1 = [selectRowData objectForKey:kViewControllerNameKey];
 	if([viewControllerName1 length] == 0){
-		[self.parentViewController dismissModalViewControllerAnimated:YES];
-		selectRowData = nil;
+		//[self.parentViewController dismissModalViewControllerAnimated:YES];
+		[self.navigationController popViewControllerAnimated:NO];
+        selectRowData = nil;
 		return;
 	} 
 	
@@ -324,8 +356,9 @@
         // The view controller has not been created yet, create it and set it to our menuList array
         NSString *viewControllerName = [selectRowData objectForKey:kViewControllerNameKey];
 		if([viewControllerName length] == 0){
-			[self.parentViewController dismissModalViewControllerAnimated:YES];
-			selectRowData = nil;
+			//[self.parentViewController dismissModalViewControllerAnimated:YES];
+			[self.navigationController popViewControllerAnimated:NO];
+            selectRowData = nil;
 			return;
 		} 
 		
@@ -333,8 +366,9 @@
         [selectRowData setValue:targetViewController forKey:kViewControllerKey];
         [targetViewController release];
     }
-	[self.parentViewController dismissModalViewControllerAnimated:NO];
-	tempSelectRowData = selectRowData;
+	//[self.parentViewController dismissModalViewControllerAnimated:NO];
+	[self.navigationController pushViewController:targetViewController animated:YES];
+    tempSelectRowData = selectRowData;
 }
 
 - (UIViewController *) getSelectViewController {

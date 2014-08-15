@@ -52,6 +52,7 @@ static DrawwaveView *uU_drawview;
 -(IBAction) OnViewUp: (id)sender;
 -(IBAction) OnViewDown: (id)sender;
 -(IBAction) OnViewCenter: (id)sender;
+-(void)OnViewOffset:(id)sender;
 -(void) alertView: (UIAlertView *)alertView clickedButtonAtIndex: (int) index;
 -(void) ontimer_display: (NSTimer *)timer; 
 -(void) ontimer_savedata:(NSTimer *)timer;

@@ -546,14 +546,14 @@ void CSitemagDoc::GetDASInfo()
 	OnInqDatasrv();
 	OnInqDas();
 	//OnInqDas();
-	OnInqCal();
+	//OnInqCal();
 	//gps
 	OnInqGps();
 
 	OnInqEnv();
 
 
-	OnInqSenssig();
+	//OnInqSenssig();
  
 	m_bmsg_clr=TRUE;
 }
@@ -1559,7 +1559,8 @@ void CSitemagDoc::OnZaiping(char * pdata,string & info)
 
 void CSitemagDoc::OnStnpar(char * pdata,string & info)
 {
-	const char *fmt="\r\n台号: %d 台站名: %s 台名缩写: %s\r\n台网标志: %s\r\n地震计总数: %d 采集通道总数: %d\r\n纬度: %.4f度 经度: %.4f度 高程: %.3f米\r\n起用日期: %s\r\n软件版本: %s\r\n";
+	//const char *fmt="\r\n台号: %d 台站名: %s 台名缩写: %s\r\n台网标志: %s\r\n地震计总数: %d 采集通道总数: %d\r\n纬度: %.4f度 经度: %.4f度 高程: %.3f米\r\n起用日期: %s\r\n软件版本: %s\r\n";
+    const char *fmt="\r\n台号: %d 台站名: %s 台名缩写: %s\r\n台网标志: %s\r\n纬度: %.4f度 经度: %.4f度 高程: %.3f米\r\n起用日期: %s\r\n软件版本: %s\r\n";
 	char buff[1500];
 	CM_STNPARFRM frm;
 	int bchange;
@@ -1586,9 +1587,9 @@ void CSitemagDoc::OnStnpar(char * pdata,string & info)
 
 	//fmt.LoadString(IDS_STNPARSTR);
 	
-	sprintf(buff, fmt,m_das.stnpar.id,m_das.stnpar.name,m_das.stnpar.abbr,m_das.stnpar.netid,m_das.stnpar.sens_num,m_das.stnpar.chn_sum,
-			 m_das.stnpar.lat,m_das.stnpar.lon,m_das.stnpar.alt,m_das.stnpar.run_date,m_das.stnpar.version);
-			
+	sprintf(buff, fmt,m_das.stnpar.id,m_das.stnpar.name,m_das.stnpar.abbr,m_das.stnpar.netid,
+            m_das.stnpar.lat,m_das.stnpar.lon,m_das.stnpar.alt,m_das.stnpar.run_date,m_das.stnpar.version);
+    
 	info = buff;
 	
 	printf("%s \n", buff);
@@ -1619,7 +1620,7 @@ void CSitemagDoc::OnSenspar(char * pdata,string & info)
 	memcpy((char *)&frm,pdata,sizeof(frm));
 
 	//fmt.LoadString(IDS_SENSPARSTR);
-	fmt = "\r\n地震计%c参数:\r\n型号:  %s\r\n分向数:  %d %s\r\n测项代码: %s\r\n记录类型:  %s\r\n标准类型: %s\r\n带宽: %s\r\n基岩: %s 埋深: %d厘米\r\n仪器响应文件:%s\r\n供货商: %s\r\n产品序号: %s\r\n";
+	fmt = "\r\n加速度计参数:\r\n方位角:%f\r\n埋深: %d厘米\r\n岩基特性值: %s\r\n仪器响应文件:%s\r\n产品序号: %s\r\n";
 	
 	info="";
 
@@ -1647,8 +1648,8 @@ void CSitemagDoc::OnSenspar(char * pdata,string & info)
 	//cxstr = "";
 	//info.Format(fmt,sens_id[frm.head.sens_id],frm.name,frm.comp,dasstr,cxstr,sr,frm.type,frm.bandstr,frm.rock,frm.depth,
 	//		frm.rspfile,frm.provider,frm.series);
-	sprintf(buff, fmt.c_str(),sens_id[frm.head.sens_id],frm.name,frm.comp,dasstr.c_str(),cxstr.c_str(),sr.c_str(),frm.type,frm.bandstr,frm.rock,frm.depth,
-			frm.rspfile,frm.provider,frm.series);
+	sprintf(buff, fmt.c_str(),frm.azim,frm.depth,frm.rock,
+			frm.rspfile,frm.series);
 	info = buff;
 	//info = "";
 	//printf("-----------------------------\n");
@@ -1668,8 +1669,8 @@ void CSitemagDoc::OnInstpar(char * pdata,string & info)
 	{
 		memset(&m_das.sens[frm->head.sens_id].inst,0,sizeof(CM_INSTPARFRM));
 		memcpy(&m_das.sens[frm->head.sens_id].inst,pdata,sizeof(CM_INSTPARFRM));
-		fmt =  "\r\n地震计%c仪器响应：\r\n垂直向阻尼：%.1f 东西向阻尼：%.1f 北南向阻尼：%.1f\r\n垂直向自振周期：%.1f 东西向自振周期：%.1f 北南向自振周期(Hz)：%.1f\r\n垂直向灵敏度：%.1f 东西向灵敏度：%.1f 北南向灵敏度：%.1f\r\n归一化值：%e\r\n极点数：%d\r\n极点：\r\n%s零点数：%d\r\n零点：\r\n%s\r\n ";
-		
+		fmt =  "\r\n加速度计 仪器响应：\r\n垂直向阻尼：%.1f 东西向阻尼：%.1f 北南向阻尼：%.1f\r\n垂直向自振周期：%.1f 东西向自振周期：%.1f 北南向自振周期(Hz)：%.1f\r\n垂直向灵敏度：%.1f 东西向灵敏度：%.1f 北南向灵敏度：%.1f\r\n归一化值：%e\r\n极点数：%d\r\n极点：\r\n%s零点数：%d\r\n零点：\r\n%s\r\n ";
+        
 		//fmt.LoadString(IDS_INSTTR);
 		s1="";
 		int i = 0;
@@ -1688,7 +1689,7 @@ void CSitemagDoc::OnInstpar(char * pdata,string & info)
 			//s.Format("%e %e\r\n",frm->zero[i].real,frm->zero[i].image);
 			s2+=s;
 		}
-		sprintf(buff,fmt.c_str(),sens_id[frm->head.sens_id],frm->ud_damp,frm->ew_damp,frm->ns_damp,frm->ud_freq,frm->ew_freq,frm->ns_freq,frm->ud,frm->ew,frm->ns,frm->ao,frm->pnum,s1.c_str(),frm->znum,s2.c_str());
+		sprintf(buff,fmt.c_str(),frm->ud_damp,frm->ew_damp,frm->ns_damp,frm->ud_freq,frm->ew_freq,frm->ns_freq,frm->ud,frm->ew,frm->ns,frm->ao,frm->pnum,s1.c_str(),frm->znum,s2.c_str());
 		info = buff;
 		//info.Format(fmt,sens_id[frm->head.sens_id],frm->ud_damp,frm->ew_damp,frm->ns_damp,frm->ud_freq,frm->ew_freq,frm->ns_freq,frm->ud,frm->ew,frm->ns,frm->ao,frm->pnum,s1,frm->znum,s2);
 	}
@@ -1741,8 +1742,8 @@ void CSitemagDoc::OnSmprate(char * pdata,string & info)
 	if(frm.be_syssamp)
 	{
 		//fmt2.LoadString(IDS_SMPSTR2);
-		fmt2 =  "\r\n地震计%c：系统采样率%d %s\r\n";
-		sprintf(buff, fmt2.c_str(), sens_id[id],samp[frm.samp_id-1],fmt1.c_str() ); 
+		fmt2 =  "\r\n加速度计：系统采样率%d %s\r\n";
+		sprintf(buff, fmt2.c_str(),samp[frm.samp_id-1],fmt1.c_str() );
 		//info.Format(fmt2,sens_id[id],samp[frm.samp_id-1],fmt1 ); 
 		info = buff;
 	}
@@ -1769,7 +1770,7 @@ void CSitemagDoc::OnGain(char * pdata,string & info)
 		m_das.sens[frm.head.sens_id].gain_id=frm.gain_id;
 
 	//fmt.LoadString(IDS_GAINSTR);
-	fmt = "\r\n地震计%c：量程%s\r\n";
+	fmt = "\r\n加速度计%c：量程%s\r\n";
 	
 	if(frm.gain_id==0){
 		fmt1="-10V ~ 10V";
@@ -1817,7 +1818,7 @@ void CSitemagDoc::OnDasoff(char *pdata,string & info)
 		n+=pblk->chn_sum;
 		pblk=pblk->lpnext;
 	}
-	fmt = "\r\n设置的地震计%c的零点修正值为：\r\n%s(count)：%d\r\n%s(count)：%d\r\n%s(count)：%d\r\n";
+	fmt = "\r\n设置的加速度计%c的零点修正值为：\r\n%s(count)：%d\r\n%s(count)：%d\r\n%s(count)：%d\r\n";
 	//fmt.LoadString(IDS_DASOFFSTR2);
 	//info.Format(fmt,sens_id[frm.head.sens_id], label[n],frm.ud,label[n+1],frm.ew,label[n+2],frm.ns);
 	sprintf(buff, fmt.c_str(), sens_id[frm.head.sens_id], label.at(n).c_str(),frm.ud,label.at(n + 1).c_str(),frm.ew,label.at(n + 2).c_str(),frm.ns);
@@ -1887,20 +1888,20 @@ void CSitemagDoc::OnDataSrv(char * pdata,string & info)
 
 		if(frm.client[i].bevent==0){
 			//fmt.LoadString(IDS_DATASRVFRM);
-			fmt = "接收服务器%d: %s 传送实时数据流  服务器地址: %s 端口: %d %s 地震计: %s %s %s 超时控制: %d秒\r\n";
+			fmt = "接收服务器%d: %s 传送实时数据流  服务器地址: %s 端口: %d %s 加速度计: %s %s %s 超时控制: %d秒\r\n";
 			sprintf(buff, fmt.c_str(),i+1,s1.c_str(),frm.client[i].host,frm.client[i].port,s2.c_str(),frm.client[i].sens,s3.c_str(),s4.c_str(),frm.client[i].tm_ctl);
 			//s.Format(fmt,i+1,s1,frm.client[i].host,frm.client[i].port,s2,frm.client[i].sens,s3,s4,frm.client[i].tm_ctl);
 			s = buff;
 		}else if(frm.client[i].bevent==1){
 			//fmt.LoadString(IDS_DATASRVFRM2);
 			//s.Format(fmt,i+1,s1,frm.client[i].host,frm.client[i].port,s2,frm.client[i].sens,frm.client[i].pre_evt,frm.client[i].aft_evt,s3,s4,frm.client[i].tm_ctl);
-			fmt = "接收服务器%d: %s 传送事件数据  服务器地址: %s 端口: %d %s 地震计: %s 传送事件前%d秒数据 传送事件后%d秒数据 %s %s 超时控制: %d秒\r\n";
+			fmt = "接收服务器%d: %s 传送事件数据  服务器地址: %s 端口: %d %s 加速度计: %s 传送事件前%d秒数据 传送事件后%d秒数据 %s %s 超时控制: %d秒\r\n";
 			sprintf(buff, fmt.c_str(),i+1,s1.c_str(),frm.client[i].host,frm.client[i].port,s2.c_str(),frm.client[i].sens,frm.client[i].pre_evt,frm.client[i].aft_evt,s3.c_str(),s4.c_str(),frm.client[i].tm_ctl);
 			s = buff;
 		}else {
 			//fmt.LoadString(IDS_DATASRVFRM3);
 			//s.Format(fmt,i+1,s1,frm.client[i].host,frm.client[i].port,s2,frm.client[i].sens,s3,s4,frm.client[i].tm_ctl);
-			fmt =  "接收服务器%d: %s 传送烈度数据  服务器地址: %s 端口: %d %s 地震计: %s %s %s 超时控制: %d秒\r\n";
+			fmt =  "接收服务器%d: %s 传送烈度数据  服务器地址: %s 端口: %d %s 加速度计: %s %s %s 超时控制: %d秒\r\n";
 			sprintf(buff, fmt.c_str(), i+1,s1.c_str(),frm.client[i].host,frm.client[i].port,s2.c_str(),frm.client[i].sens,s3.c_str(),s4.c_str(),frm.client[i].tm_ctl);
 			s = buff;
 		}
@@ -2295,7 +2296,7 @@ void CSitemagDoc::OnCalStrong(char * pdata,string & info)
 		return;
 
 	//fmt.LoadString(IDS_STRONGSTR);
-	fmt = "\r\n地震计%c强震标定参数：\r\n%s\r\n第一次启动时间：%04d-%02d-%02d %02d:%02d:%02d\r\n定时方式：%s %s\r\n";
+	fmt = "\r\n加速度计 强震标定参数：\r\n%s\r\n第一次启动时间：%04d-%02d-%02d %02d:%02d:%02d\r\n定时方式：%s %s\r\n";
 	if(frm.head.sens_id>=0 && frm.head.sens_id<MAXSENSNUM)
 	{
 		id=frm.head.sens_id;
@@ -2359,7 +2360,7 @@ void CSitemagDoc::OnCalStrong(char * pdata,string & info)
 		s1 = buff;
 	}
 
-	sprintf(buff,fmt.c_str(),sens_id[id],fmt1.c_str(),t->tm_year + 1900,t->tm_mon + 1,t->tm_mday,t->tm_hour,t->tm_min,t->tm_sec,
+	sprintf(buff,fmt.c_str(),fmt1.c_str(),t->tm_year + 1900,t->tm_mon + 1,t->tm_mday,t->tm_hour,t->tm_min,t->tm_sec,
 			s.c_str(),s1.c_str());
 	//info.Format(fmt,sens_id[id],fmt1,t.GetYear(),t.GetMonth(),t.GetDay(),t.GetHour(),t.GetMinute(),t.GetSecond(),
 	//	s,s1);
@@ -2611,9 +2612,10 @@ void CSitemagDoc::OnVOL(char * pdata,string & info)
 	m_das.das.vol.stor_v=(float)frm.stor_vol*0.1f;
 
 	//fmt.LoadString(IDS_VOLSTR);
-	fmt = "\r\n外部电压: %.2f伏\r\n内部电压: %.2f伏\r\n电瓶电压: %.2f伏\r\n";
+	fmt = "\r\n外部电压: %.2f伏\r\n网络供电电压: %.2f伏\r\n";
 	//info.Format(fmt,m_das.das.vol.out_v,m_das.das.vol.in_v,m_das.das.vol.stor_v);
-	sprintf(buff, fmt.c_str(),m_das.das.vol.out_v,m_das.das.vol.in_v,m_das.das.vol.stor_v);
+	sprintf(buff, fmt.c_str(),m_das.das.vol.out_v,m_das.das.vol.in_v);
+    info = buff;
 }
 
 void CSitemagDoc::OnTEMP(char * pdata,string & info)
@@ -2753,16 +2755,16 @@ void CSitemagDoc::OnGetHeartbeat(char *pdata,string & info)
 
 	if(frm.buf_total!=0.f){
 		//fmt.LoadString(IDS_BUFSIZEFMT2);
-		fmt = "存储器总空间: %d(KB)，可用空间: %d(KB)，占用: %.1f%%\r\n";
+		fmt = "存储器总空间: %.2f(MB)，可用空间: %.2f(MB)，占用: %.1f%%\r\n";
 		float rate=(float)100*(frm.buf_total-frm.buf_free)/frm.buf_total;
 		//s.Format(fmt,frm.buf_total,frm.buf_free,rate);
-		sprintf(buff,fmt.c_str(),frm.buf_total,frm.buf_free,rate);
+		sprintf(buff,fmt.c_str(),frm.buf_total/1024.0,frm.buf_free/1024.0,rate);
 		s = buff;
 	}else {
 		//fmt.LoadString(IDS_BUFSIZEFMT1);
 		//s.Format(fmt,frm.buf_total,frm.buf_free);
-		fmt = "存储器总空间: %d(KB)，可用空间: %d(KB)\r\n";
-		sprintf(buff, fmt.c_str(), frm.buf_total,frm.buf_free);
+		fmt = "存储器总空间: %.2f(MB)，可用空间: %.2f(MB)\r\n";
+		sprintf(buff, fmt.c_str(), frm.buf_total/1024.0,frm.buf_free/1024.0);
 		s = buff;
 	}
 	info+=s;
@@ -3006,15 +3008,16 @@ void CSitemagDoc::OnGetSensoff(char * pdata,string & info)
 	memcpy((char *)&frm,pdata,sizeof(frm));
 	
 	//fmt.LoadString(IDS_SENSOFFSTR);
-	fmt="\r\n地震计%c的机械零位的监测值为：垂直向=%.3f毫伏 东西向=%.3f毫伏 北南向=%.3f毫伏\r\n实际值（BBVS-60/120地震计）为: 垂直向=%.3f毫伏 东西向=%.3f毫伏 北南向=%.3f毫伏\r\n";
+	//fmt="\r\n地震计%c的机械零位的监测值为：垂直向=%.3f毫伏 东西向=%.3f毫伏 北南向=%.3f毫伏\r\n实际值（BBVS-60/120地震计）为: 垂直向=%.3f毫伏 东西向=%.3f毫伏 北南向=%.3f毫伏\r\n";
+    fmt="\r\n加速度计零点值：CH1=%.3f毫伏 CH2=%.3f毫伏 CH3=%.3f毫伏\r\n";
 	//frm.ch1∂‘”¶ µº Ω”œﬂ3,frm.ch2∂‘”¶ µº Ω”œﬂ1,frm.ch3∂‘”¶ µº Ω”œﬂ2
- 	off[1]=frm.ch1*2.384/1000;//mv 2.384uV/count
-	off[2]=frm.ch2*2.384/1000;
-	off[0]=frm.ch3*2.384/1000;
+ 	off[1]=frm.ch1/33554.432;//mv 2.384uV/count
+	off[2]=frm.ch2/33554.432;
+	off[0]=frm.ch3/33554.432;
 	//“‘10vŒ™¬˙∑˘º∆À„∞Ÿ∑÷±»,µ⁄“ª◊Èº‡≤‚÷µ£∫BBVSÀ•ºı6±∂£¨ µº ÷µ «’Ê µ÷µ=º‡≤‚÷µ*6£ª∆‰À˚µÿ’º∆£∫µ⁄“ª◊Èº‡≤‚÷µ
 	if(frm.head.sens_id<MAXSENSNUM) {
 		//info.Format(fmt,sens_id[frm.head.sens_id],off[0],off[1],off[2],off[0]*6,off[1]*6,off[2]*6);
-		sprintf(buff,fmt.c_str(),sens_id[frm.head.sens_id],off[0],off[1],off[2],off[0]*6,off[1]*6,off[2]*6);
+		sprintf(buff,fmt.c_str(),off[1],off[2],off[0]);
 		info = buff;
 	}
 	
@@ -3224,6 +3227,18 @@ void CSitemagDoc::OnEvtTrig(char * pdata,string & info)
 		//	t.GetHour(),t.GetMinute(),t.GetSecond(),frm->frac_sec);
 	}
 }
+
+void CSitemagDoc::OnEvtrecFile(char * pdata,string & info)
+{
+	CM_EVTRECFILE * frm=(CM_EVTRECFILE *)pdata;
+	string fmt = "共%d条地震事件记录";
+	char buff[1500];
+	//fmt.LoadString(IDS_EVTRECFMT);
+	//info.Format(fmt,frm->pre_evt,frm->aft_evt);
+	sprintf(buff, fmt.c_str(), frm->file_sum);
+    info = buff;
+}
+
 void CSitemagDoc::OnEvtrec(char * pdata,string & info)
 {
 	CM_EVTRECFRM * frm=(CM_EVTRECFRM *)pdata;
@@ -3234,6 +3249,7 @@ void CSitemagDoc::OnEvtrec(char * pdata,string & info)
 	sprintf(buff, fmt.c_str(), frm->pre_evt,frm->aft_evt);
 	m_pre_evt=frm->pre_evt;
 	m_aft_evt=frm->aft_evt;
+    info = buff;
 }
 
 void CSitemagDoc::OnBroadcast(char * pdata,string & info)
@@ -3324,8 +3340,8 @@ void CSitemagDoc::OnInqDas()
 		//SiteInquery(0x4003,i);
 
 	//gain
-	for( i=0;i<m_das.stnpar.sens_num;i++)
-		SiteInquery(0x8005,i);
+//	for( i=0;i<m_das.stnpar.sens_num;i++)
+//		SiteInquery(0x8005,i);
  
 }
 
@@ -3442,6 +3458,22 @@ void CSitemagDoc::OnInqInoff()
 	for(int i=0;i<m_das.stnpar.sens_num;i++)
 		SiteInquery(0x8006,i);
 }
+
+void CSitemagDoc::OnInqBiaoDing(){
+    SiteInquery(0x8023, 0);
+}
+
+void CSitemagDoc::OnInqDataService(){
+    SiteInquery(0x8030, 0);
+    SiteInquery(0x8031, 0);
+    SiteInquery(0x8032, 0);
+}
+
+void CSitemagDoc::OnInqEvtRec(){
+    SiteInquery(0x807e, 0);
+    SiteInquery(0x807f, 0);
+}
+
 void CSitemagDoc::OnInqEnv() 
 {
 	// TODO: Add your command handler code here
@@ -3450,8 +3482,11 @@ void CSitemagDoc::OnInqEnv()
 	//	m_bmsg_clr=FALSE;
 	//}
 
+	SiteInquery(0x8061,0);
 	SiteInquery(0x8066,0);
-	OnInqInoff();
+    SiteInquery(0x8065,0);
+    SiteInquery(0x8068,0);
+//	OnInqInoff();
 //	OnInqBatcharge();
 	m_bmsg_clr=TRUE;
 }
@@ -3535,8 +3570,8 @@ void CSitemagDoc::OnInqHdstat()
 	//if(m_bmsg_clr)
 	//	m_msg.clearbuf();
 
-	SiteInquery(0x8067,0);	
-	SiteInquery(0x8070,0);
+    SiteInquery(0x8065, 0);
+    SiteInquery(0x8068, 0);
 
 }
 

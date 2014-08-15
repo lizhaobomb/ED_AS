@@ -78,7 +78,7 @@ typedef struct tagCM_STNPARFRM
 }CM_STNPARFRM;
 
 //地震计参数帧 
-#ifdef EDAS_IML//烈度仪
+//#ifdef EDAS_IML//烈度仪
 typedef struct tagCM_SENSPARFRM
 {
 	CMDHEAD head;
@@ -98,26 +98,26 @@ typedef struct tagCM_SENSPARFRM
 	short chk_sum;
 }CM_SENSPARFRM;
 
-#else
-typedef struct tagCM_SENSPARFRM
-{
-	CMDHEAD head;
-	char name[16];//型号
-	char provider[32];//供货商
-	char series[16];//序列号
-	char rectype[4];//类型 D: 位移型 V: 速度型 A: 加速度型
-	char type[12];//标准类型,依照行业标准
-	char bandstr[16];//带宽
-	long depth;//埋深,cm
-	char rock[32];//岩基
-	char state[4];//状态，GC
-	char rspfile[32];//响应文件
-	long comp;//分向数
-	int das_id[3];//分向对应的A/D通道序号，从1开始依次为高速A/D通道1-6，低速1-6
-	char cxid[3][8];//依照DB/T3-2003 [地震及地震前兆测项分类及代码]标准
-	short chk_sum;
-}CM_SENSPARFRM;
-#endif
+//#else
+//typedef struct tagCM_SENSPARFRM
+//{
+//	CMDHEAD head;
+//	char name[16];//型号
+//	char provider[32];//供货商
+//	char series[16];//序列号
+//	char rectype[4];//类型 D: 位移型 V: 速度型 A: 加速度型
+//	char type[12];//标准类型,依照行业标准
+//	char bandstr[16];//带宽
+//	long depth;//埋深,cm
+//	char rock[32];//岩基
+//	char state[4];//状态，GC
+//	char rspfile[32];//响应文件
+//	long comp;//分向数
+//	int das_id[3];//分向对应的A/D通道序号，从1开始依次为高速A/D通道1-6，低速1-6
+//	char cxid[3][8];//依照DB/T3-2003 [地震及地震前兆测项分类及代码]标准
+//	short chk_sum;
+//}CM_SENSPARFRM;
+//#endif
 
 typedef struct tagCM_INSTPARFRM 
 {
@@ -684,6 +684,12 @@ typedef struct tagCM_EVTRECFRM
 	short aft_evt;//事件后记录长度，秒
 	short chk_sum;// 校验
 }CM_EVTRECFRM;
+
+typedef struct tagCM_EVTRECFILE
+{
+    CMDHEAD head;
+    short file_sum;
+}CM_EVTRECFILE;
 
 //错误帧
 typedef struct tagCM_ERRORFRM

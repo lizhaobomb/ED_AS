@@ -123,6 +123,11 @@ static RootViewController *uRootViewController;
 	UIBarButtonItem * item_up=[[UIBarButtonItem alloc] initWithTitle:@"放大" style:UIBarButtonItemStyleBordered target:self action:@selector(OnViewUp:)] ;
 	UIBarButtonItem * item_down=[[UIBarButtonItem alloc] initWithTitle:@"缩小" style:UIBarButtonItemStyleBordered target:self action:@selector(OnViewDown:)] ;
 	UIBarButtonItem * item_center=[[UIBarButtonItem alloc] initWithTitle:@"居中" style:UIBarButtonItemStyleBordered target:self action:@selector(OnViewCenter:)] ;
+    UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, kCustomButtonHeight, 44, 28);
+    [btn setImage:[UIImage imageNamed:@"offset_btn"] forState:0];
+    [btn addTarget:self action:@selector(OnViewOffset:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* item_offset = [[UIBarButtonItem alloc] initWithCustomView:btn];
 	UIBarButtonItem * item_scantime=[[UIBarButtonItem alloc] initWithTitle:@"显示时间" style:UIBarButtonItemStyleBordered target:self action:@selector(OnScantime:)] ;
 	
 	//item_up.width = 40;
@@ -146,13 +151,14 @@ static RootViewController *uRootViewController;
 	
 	UIBarButtonItem * item_cal_info=[[UIBarButtonItem alloc] initWithCustomView:  label];
 	
-	toolbar.items = [NSArray arrayWithObjects:item_up, item_down, item_center, item_scantime ,item_time_info,item_cal_info,nil];
+	toolbar.items = [NSArray arrayWithObjects:item_up, item_down, item_center, item_offset, item_scantime ,item_time_info,item_cal_info,nil];
 	toolbar.clipsToBounds=YES;
 	[label release];
 	
 	[item_up release];
 	[item_down release];
 	[item_center release];
+    [item_offset release];
 	[item_scantime release];
 	[item_time_info release];
 	
@@ -247,12 +253,10 @@ static RootViewController *uRootViewController;
 		if (self.queryMenuViewController == nil)
 			self.queryMenuViewController = [[[QueryMenuViewController alloc] initWithNibName:
 											 NSStringFromClass([QueryMenuViewController class]) bundle:nil] autorelease];
-		[NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(ontimer_querymenu:) userInfo:nil repeats:YES];
-		[self.navigationController presentModalViewController:self.queryMenuViewController animated:YES];
-		
-		
-		
-		
+		//[NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(ontimer_querymenu:) userInfo:nil repeats:YES];
+		//[self.navigationController presentModalViewController:self.queryMenuViewController animated:YES];
+        [self.navigationController pushViewController:self.queryMenuViewController animated:NO];
+
 	}else if(segmentedControl.selectedSegmentIndex == 2) //set
 	{
 		
@@ -260,8 +264,9 @@ static RootViewController *uRootViewController;
 			self.setMenuViewController = [[[SetMenuViewController alloc] initWithNibName:
 										   NSStringFromClass([SetMenuViewController class]) bundle:nil] autorelease];
 		
-		[NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(ontimer_setmenu:) userInfo:nil repeats:YES];
-		[self.navigationController presentModalViewController:self.setMenuViewController animated:YES];
+		//[NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(ontimer_setmenu:) userInfo:nil repeats:YES];
+		//[self.navigationController presentModalViewController:self.setMenuViewController animated:YES];
+        [self.navigationController pushViewController:self.setMenuViewController animated:NO];
 		
 	}else if(segmentedControl.selectedSegmentIndex == 3) // about
 	{
@@ -536,14 +541,14 @@ static RootViewController *uRootViewController;
 {
 	char tmp[40];
 	if(cali_flag==4)
-		strcpy(tmp,"脉冲标定");
+		strcpy(tmp,"强震标定");
 	else if(cali_flag==2)
 		strcpy(tmp,"正弦标定");
 	else if(cali_flag==6)
 		strcpy(tmp,"伪随机码标定");
 	else return;
 	
-	sprintf(calistr,"地震计：%c %s", sens_id[local_id],tmp);
+	sprintf(calistr,"地震计：%s",tmp);
 	
 }
 
@@ -786,6 +791,9 @@ static RootViewController *uRootViewController;
 		case 0x707e:
 			siteDoc.OnEvtrec(pdata,info);
 			break;
+        case 0x707f:
+            siteDoc.OnEvtrecFile(pdata, info);
+            break;
 		case 0x90f0:
 			siteDoc.OnEvtTrig(pdata,info);
 			break;
@@ -864,12 +872,28 @@ clickedButtonAtIndex: (int) index
 }
 
 -(void) OnViewCenter:(id)sender{
+    if (siteDoc.m_offset) {
+        return;
+    }
 	[self.u_drawview OnViewCenter];
 }
 -(void) OnScantime: (id)sender{
 	
 	//show alertmessage to select scantime
 	[self.u_drawview OnScantime];
+}
+
+-(void)OnViewOffset:(id)sender{
+    if(!siteDoc.IsConnected())
+		return;
+    if (siteDoc.m_offset) {
+        siteDoc.m_offset = NO;
+        [sender setImage:[UIImage imageNamed:@"offset_btn"] forState:0];
+    } else {
+        siteDoc.m_offset = YES;
+        [sender setImage:[UIImage imageNamed:@"offset_btns"] forState:0];
+    }
+    
 }
 
 
